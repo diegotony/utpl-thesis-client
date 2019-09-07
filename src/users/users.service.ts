@@ -38,6 +38,7 @@ export class UsersService {
     async getHash(password: string|undefined): Promise<string> {
       return bcrypt.hash(password, this.saltRounds);
     }
+    
     async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
       return bcrypt.compare(password, hash);
     }
