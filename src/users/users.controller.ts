@@ -1,19 +1,22 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, HttpCode, Body } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { CreateUserDto } from '../../shared/dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from '../../shared/dto/user.dto';
 
-@Controller()
+@Controller('user')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
-    @MessagePattern({ cmd: 'createUser' })
-    async create(dto: CreateUserDto) {
+
+    @Post()
+    @HttpCode(204)
+    async create(@Body() dto: CreateUserDto) {
       // TODO: map to UserDTO
       return (await this.usersService.createUser(dto));
     }
 
-    @MessagePattern({ cmd: 'findUsers' })
+    @Get()
+    @HttpCode(200)
     async findAll(): Promise<User[]> {
       return (await this.usersService.findUsers())
       .map(v => ({
@@ -22,19 +25,20 @@ export class UsersController {
       }));
     }
 
-    @MessagePattern({ cmd: 'findUser' })
-    async findUser(idUser): Promise<User[]> {
-      return (await this.usersService.findUser(idUser));
+    @Get(':id')
+    @HttpCode(200)
+    async findUser(@Param() params): Promise<User[]> {
+      return (await this.usersService.findUser(params.id));
     }
 
-    @MessagePattern({ cmd: 'editUser' })
-    async editUser(data){
-      return (await this.usersService.editUser(data));
+    @Put(':id')
+    async editUser(@Param() params, @Body() dto:CreateUserDto){
+      return (await this.usersService.editUser(params.id,dto));
     }
 
-    @MessagePattern({ cmd: 'deleteUser' })
-    async deleteUser(idUser): Promise<User[]> {
-      return (await this.usersService.deleteUser(idUser));
+    @Put(':id')
+    async deleteUser(@Param() params): Promise<User[]> {
+      return (await this.usersService.deleteUser(params.id));
     }
 
     @MessagePattern({ cmd: 'compareHash' })

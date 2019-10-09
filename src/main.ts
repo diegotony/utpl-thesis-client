@@ -1,11 +1,19 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
-import {OPTIONS} from './main.options';
-
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, OPTIONS);
-  app.listen(() => console.log(' User-Microservice is listening'));
+  const app = await NestFactory.create(AppModule);
+
+  const options = new DocumentBuilder()
+  .setTitle('User Service')
+  .setDescription('The service API description')
+  .setVersion('1.0')
+  .addTag('user')
+  .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
+
+  await app.listen(3000);
 }
 bootstrap();

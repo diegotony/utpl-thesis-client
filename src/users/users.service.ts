@@ -9,7 +9,6 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   private saltRounds = 10;
-  private id = 0;
 
     constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
@@ -29,9 +28,7 @@ export class UsersService {
     async deleteUser(idUser: string): Promise<User[]> {
       return await this.userModel.findByIdAndRemove(idUser);
     }
-    async editUser(data) {
-      const id = data[0].id;
-      const dto = data[0].dto;
+    async editUser(id,dto) {
       return await this.userModel.findByIdAndUpdate(id, dto, {new: true, runValidators: true});
     }
 
