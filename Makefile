@@ -1,4 +1,4 @@
-IMAGE := diegotony/orden-micro:travis
+IMAGE := diegotony/client-micro:travis
 
 test:
 	true
