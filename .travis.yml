@@ -1,8 +1,26 @@
-language: node_js
-node_js:
-  - 10
+sudo: required
+services:
+  - 'docker'
 
-cache:
-  directories:
-    - "node_modules"
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2 
 
+before_install:
+  - 'chmod +x .travis/main.sh'
+  - './.travis/main.sh'
+  - 'docker-compose version'
+
+script:
+  - 'make test'
+  - 'make image'
+
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      make push-image ;
+    fi
+
+# don't notify me when things fail
+
+notifications:
+  email: true
