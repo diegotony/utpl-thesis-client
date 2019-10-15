@@ -18,7 +18,6 @@ before_script:
   - 'docker-compose version'
 
 script:
-  - sonar-scanner
   - make test
   - make image
 
