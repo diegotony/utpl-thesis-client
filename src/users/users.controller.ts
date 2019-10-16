@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Put, Delete, Param, HttpCode, Body, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
 import { CreateUserDto } from '../../shared/dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from '../../shared/dto/user.dto';
@@ -10,8 +9,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  @HttpCode(204)
-  async create(@Body() dto: CreateUserDto) {
+  @HttpCode(201)
+  async createUser(@Body() dto: CreateUserDto) {
     return (await this.usersService.createUser(dto));
   }
 

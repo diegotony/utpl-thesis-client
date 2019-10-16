@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../../shared/dto/user.dto';
 import {CreateUserDto} from '../../shared/dto/create-user.dto';
@@ -13,9 +13,20 @@ export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
     async createUser(createUserDto: CreateUserDto): Promise<User> {
-      createUserDto.password = await this.getHash(createUserDto.password);
-      const createdUser = new this.userModel(createUserDto);
-      return await createdUser.save();
+      try {
+        // createUserDto.password = await this.getHash(createUserDto.password);
+        const createdUser = new this.userModel(createUserDto);
+        if (!createdUser) {
+          throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+        }
+        createdUser.save();
+        return await createdUser;
+      } catch (error) {
+        console.log(error)
+        throw new HttpException(`Callback createUser ${error.message}`, HttpStatus.BAD_REQUEST);
+      }
+
+
     }
     async findUsers(): Promise<User[]> {
       return await this.userModel.find().exec();
