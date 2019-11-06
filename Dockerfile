@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10
 MAINTAINER diegotony
 RUN mkdir -p /usr/src/app
 #RUN apk --no-cache add --virtual builds-deps build-base python
