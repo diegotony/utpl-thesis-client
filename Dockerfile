@@ -11,5 +11,5 @@ ENV PORT=3011
 ENV MONGO_HOST=mongo
 ENV MONGO_PORT=27017
 ENV MONGO_DB=client
-ENTRYPOINT [ "npm" ]
-CMD ["run","start"]
+RUN npm run build
+CMD ["npm","run","start:prod"]
