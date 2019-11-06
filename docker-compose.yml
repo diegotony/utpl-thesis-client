@@ -1,0 +1,26 @@
+version: 3
+services:
+  mongodb-client:
+    image: 'bitnami/mongodb'
+    container_name: mongodb-client
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongodb-client:/data/db/client
+
+  client-micro:
+    restart: always
+    image: diegotony/client-micro:travis
+    ports:
+      - "4003:4003"
+    environment:
+      - MONGO_URI=mongodb://mongodb-client:27017/client
+      - PORT=4003
+    depends_on:
+      - mongodb-client
+    links:
+      - mongodb-client
+
+volumes:
+  mongodb-client:

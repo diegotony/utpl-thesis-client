@@ -1,5 +1,5 @@
-# IMAGE := diegotony/client-micro:travis
-IMAGE := diegotony/client-micro:kubernetes
+IMAGE := diegotony/client-micro:travis
+# IMAGE := diegotony/client-micro:kubernetes
 
 test:
 	true
