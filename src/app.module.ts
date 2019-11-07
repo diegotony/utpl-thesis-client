@@ -7,7 +7,9 @@ import { TerminusModule } from "@nestjs/terminus";
 @Module({
   imports: [
     MongooseModule.forRoot(
-      `mongodb://${config.MONGO_HOST}/${config.MONGO_DB}`
+      // `mongodb://@${config.MONGO_HOST}/${config.MONGO_DB}`, {useNewUrlParser: true },
+      "mongodb://"+config.MONGO_HOST+"/"+config.MONGO_DB, {useNewUrlParser: true },
+      
     ),
     UsersModule,
     TerminusModule.forRootAsync({useClass: TerminusOptionsService})
