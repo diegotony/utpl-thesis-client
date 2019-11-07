@@ -1,13 +1,15 @@
-version: 3
+version: "3"
 services:
   mongodb-client:
-    image: 'bitnami/mongodb'
+    image: 'mongo'
     container_name: mongodb-client
     restart: always
     ports:
       - "27019:27017"
     volumes:
       - mongodb-client:/data/db/client
+    networks:
+      backend:
 
   client-micro:
     restart: always
@@ -15,12 +17,17 @@ services:
     ports:
       - "4003:4003"
     environment:
-      - MONGO_URI=mongodb://mongodb-client:27017/client
+      - MONGO_HOST=mongodb-client
       - PORT=4003
     depends_on:
       - mongodb-client
     links:
       - mongodb-client
+    networks:
+      backend:
 
 volumes:
   mongodb-client:
+networks:
+  backend:
+    driver: bridge
