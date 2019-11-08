@@ -1,4 +1,4 @@
-IMAGE := diegotony/client-micro:kubenetes
+IMAGE := diegotony/client-micro:k8s
 # IMAGE := diegotony/client-micro:kubernetes
 
 test:
