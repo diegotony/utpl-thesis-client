@@ -68,6 +68,15 @@ export class UsersController {
     // return (await this.usersService.deleteUser(params.id));
   }
 
+  @Get('check/:id')
+  @ApiImplicitParam({ name: 'id' })
+  @HttpCode(200)
+  @HttpCode(200)
+  async check(@Param() params): Promise<any[]> {
+      console.log(params)
+      return (await this.usersService.checkDni(params.id));
+  }
+
   // @MessagePattern({ cmd: 'compareHash' })
   // async compareHash(password, hash): Promise<Boolean> {
   //   return (await this.usersService.compareHash(password, hash));
