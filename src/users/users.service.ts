@@ -45,14 +45,6 @@ export class UsersService {
     return await this.userModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true });
   }
 
-  // async getHash(password: string|undefined): Promise<string> {
-  //   return bcrypt.hash(password, this.saltRounds);
-  // }
-
-  // async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
-  //   return bcrypt.compare(password, hash);
-  // }
-
   async checkDni(dni: string): Promise<any[]> {
     try {
       const check = await this.userModel.exists({ dni: dni })

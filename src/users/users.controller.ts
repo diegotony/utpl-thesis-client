@@ -20,12 +20,20 @@ import {
   ApiResponse
 } from "@nestjs/swagger";
 
+import { MessagePattern } from '@nestjs/microservices';
+
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
+
+  @MessagePattern({ cmd: 'findUser' })
+  async findById(data) {
+    return await this.usersService.findUser(data.id_user)
+   
+  }
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(200)
   async createUser(@Body() dto: CreateUserDto) {
     return await this.usersService.createUser(dto);
   }
@@ -73,8 +81,8 @@ export class UsersController {
   @HttpCode(200)
   @HttpCode(200)
   async check(@Param() params): Promise<any[]> {
-      console.log(params)
-      return (await this.usersService.checkDni(params.id));
+    console.log(params)
+    return (await this.usersService.checkDni(params.id));
   }
 
   // @MessagePattern({ cmd: 'compareHash' })
