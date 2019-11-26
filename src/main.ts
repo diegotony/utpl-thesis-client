@@ -10,7 +10,7 @@ async function bootstrap() {
 
 
   // redis.listen(() => console.log('Microservice is listening'));
-  // const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
   .setTitle('User Service')
