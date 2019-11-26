@@ -6,11 +6,11 @@ import {OPTIONS} from './main-optinos';
 
 async function bootstrap() {
 
-  const redis = await NestFactory.createMicroservice(AppModule, OPTIONS);
+  // const redis = await NestFactory.createMicroservice(AppModule, OPTIONS);
 
 
-  redis.listen(() => console.log('Microservice is listening'));
-  const app = await NestFactory.create(AppModule);
+  // redis.listen(() => console.log('Microservice is listening'));
+  // const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
   .setTitle('User Service')
