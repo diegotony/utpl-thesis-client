@@ -3,8 +3,6 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../../shared/dto/user.dto';
 import { CreateUserDto } from '../../shared/dto/create-user.dto';
-import * as bcrypt from 'bcrypt';
-
 
 @Injectable()
 export class UsersService {
