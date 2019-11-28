@@ -22,7 +22,7 @@ import {
 
 import { MessagePattern } from '@nestjs/microservices';
 
-@Controller("users")
+@Controller("api-client/users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
