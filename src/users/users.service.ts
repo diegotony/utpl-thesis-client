@@ -54,7 +54,6 @@ export class UsersService {
       if (!check) {
         return this.nope
       }
-
     } catch (error) {
       // throw new HttpException(`Callback createUser ${error.message}`, HttpStatus.BAD_REQUEST);
       return this.nope

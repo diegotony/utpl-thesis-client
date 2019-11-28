@@ -7,7 +7,7 @@ import config from "./config/config";
 @Module({
   imports: [
     MongooseModule.forRoot(
-      "mongodb://"+config.MONGO_HOST+"/"+config.MONGO_DB, {useNewUrlParser: true,useUnifiedTopology: true },
+      "mongodb://"+config.MONGO_HOST+"/"+config.MONGO_DB, {useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true,},
       
     ),
     UsersModule,
