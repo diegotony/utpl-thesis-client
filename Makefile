@@ -1,5 +1,4 @@
 IMAGE := diegotony/client-micro:k8s
-# IMAGE := diegotony/client-micro:k8s
 
 test:
 	true

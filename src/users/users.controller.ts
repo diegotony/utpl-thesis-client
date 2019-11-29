@@ -22,14 +22,14 @@ import {
 
 import { MessagePattern } from '@nestjs/microservices';
 
-@Controller("api-client/users")
+@Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @MessagePattern({ cmd: 'findUser' })
   async findById(data) {
     return await this.usersService.findUser(data.id_user)
-   
+
   }
 
   @Post()
@@ -85,8 +85,14 @@ export class UsersController {
     return (await this.usersService.checkDni(params.id));
   }
 
-  // @MessagePattern({ cmd: 'compareHash' })
-  // async compareHash(password, hash): Promise<Boolean> {
-  //   return (await this.usersService.compareHash(password, hash));
+  // @MessagePattern({ cmd: "getIdUser" })
+  // async findUserRedis(): Promise<User[]> {
+  //   return (await this.usersService.findUser("5de02c83accce83435f4493a"));
+
   // }
+  @MessagePattern({ cmd: 'LIST_MOVIES' })
+  listMovies(): string[] {
+    return ['Pulp Fiction', 'Blade Runner', 'Hatred'];
+  }
+
 }
