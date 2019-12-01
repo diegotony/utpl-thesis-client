@@ -14,11 +14,7 @@ import {
 import { CreateUserDto } from "../../shared/dto/create-user.dto";
 import { UsersService } from "./users.service";
 import { User } from "../../shared/dto/user.dto";
-import {
-  ApiImplicitBody,
-  ApiImplicitParam,
-  ApiResponse
-} from "@nestjs/swagger";
+import { ApiImplicitParam } from "@nestjs/swagger";
 
 import { MessagePattern } from '@nestjs/microservices';
 
@@ -27,8 +23,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @MessagePattern({ cmd: 'findUser' })
-  async findById(data) {
-    return await this.usersService.findUser(data.id_user)
+  async findById(id_user) {
+    return await this.usersService.findUser(id_user)
 
   }
 
