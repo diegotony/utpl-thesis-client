@@ -22,8 +22,10 @@ import { MessagePattern } from '@nestjs/microservices';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @MessagePattern({ cmd: 'findClient' })
-  async findById(id_user) {
+  @MessagePattern( 'findClient' )
+  async findById(id_user): Promise<any> {
+    console.log(id_user)
+
     return await this.usersService.findUser(id_user)
 
   }
