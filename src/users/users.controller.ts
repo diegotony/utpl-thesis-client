@@ -54,6 +54,18 @@ export class UsersController {
     // return (await this.usersService.findUser(params.id));
   }
 
+  @Get("dni/:id")
+  @ApiImplicitParam({ name: "id" })
+  @HttpCode(200)
+  async findDni(@Param() params): Promise<User> {
+    const user = await this.usersService.findDni(params.id);
+    if (!user) {
+      if (!user) throw new NotFoundException("Not Exist");
+    }
+    return user;
+    // return (await this.usersService.findUser(params.id));
+  }
+
   @Put(":id")
   @ApiImplicitParam({ name: "id" })
   @HttpCode(204)

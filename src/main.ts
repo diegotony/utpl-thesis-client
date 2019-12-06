@@ -23,6 +23,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('user')
     .build();
+  app.enableCors();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger/client', app, document);
   await app.listen(config.PORT);

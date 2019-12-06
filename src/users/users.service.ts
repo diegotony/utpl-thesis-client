@@ -36,6 +36,17 @@ export class UsersService {
     return await this.userModel.findById(idUser).exec();
   }
 
+  async findDni(dni: string): Promise<any> {
+    const user = await this.userModel.findOne({dni:dni}).exec();
+    if(user === undefined || user.length == 0){
+      return this.nope
+    }
+
+    const data = { "status":"ok","id_client":user._id}
+
+    return data
+  }
+
   async deleteUser(idUser: string): Promise<User[]> {
     return await this.userModel.findByIdAndRemove(idUser);
   }
@@ -47,7 +58,12 @@ export class UsersService {
     try {
       const check = await this.userModel.exists({ dni: dni })
       if (check) {
-        return this.ok
+        this.findDni(dni).then((user)=>{
+          console.log(user)
+          const response:any = {"status":"ok"}
+          return response
+        })
+      
       }
       if (!check) {
         return this.nope
