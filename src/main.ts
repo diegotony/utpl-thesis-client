@@ -18,10 +18,10 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle('User Service')
+    .setTitle('Client Service')
     .setDescription('The service API description')
     .setVersion('1.0')
-    .addTag('user')
+    .addTag('client')
     .build();
   app.enableCors();
   const document = SwaggerModule.createDocument(app, options);

@@ -14,14 +14,14 @@ import {
 import { CreateUserDto } from "../../shared/dto/create-user.dto";
 import { UsersService } from "./users.service";
 import { User } from "../../shared/dto/user.dto";
-import { ApiImplicitParam } from "@nestjs/swagger";
+import { ApiImplicitParam, ApiUseTags } from "@nestjs/swagger";
 
 import { MessagePattern } from '@nestjs/microservices';
 
+@ApiUseTags('client')
 @Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
-
   @MessagePattern( 'findClient' )
   async findById(id_user): Promise<any> {
     console.log(id_user)

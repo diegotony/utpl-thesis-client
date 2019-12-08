@@ -5,6 +5,5 @@ export const UserSchema = new mongoose.Schema({
   email: {type: String, required: true, unique: true},
   dni: {type: String, required: true, unique: true, minlength: 10, maxlength: 10},
   date: { type: Date, default: Date.now },
-  // password: {type: String, required: true, nullable: true},
-
+  address: {type: String, required: true},
 });

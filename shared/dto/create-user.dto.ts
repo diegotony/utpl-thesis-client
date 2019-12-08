@@ -8,6 +8,8 @@ export class CreateUserDto {
   readonly email: string;
   @ApiModelProperty()
   readonly  dni:  string;
+  @ApiModelProperty()
+  readonly  address:  string;
   // @ApiModelProperty()
   // password: string;
   // password_hash: string;

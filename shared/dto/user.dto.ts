@@ -4,5 +4,6 @@ export class User {
     readonly last_name: string;
     readonly email: string;
     readonly  dni:  string;
+    readonly address: string;
     // readonly password: string;
 };
