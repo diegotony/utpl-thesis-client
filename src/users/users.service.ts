@@ -14,6 +14,7 @@ export class UsersService {
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
+      console.log(createUserDto)
       // createUserDto.password = await this.getHash(createUserDto.password);
       const createdUser = new this.userModel(createUserDto);
       if (!createdUser) {
@@ -37,7 +38,8 @@ export class UsersService {
 
   async findDni(dni: string): Promise<any> {
     const user = await this.userModel.findOne({ dni: dni }).exec();
-    if (user === undefined || user.length == 0) {
+    console.log(user)
+    if (user === undefined || user === null) {
       return this.nope
     }
     const data = { "status": "ok", "id_client": user._id }
