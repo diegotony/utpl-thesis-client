@@ -25,9 +25,8 @@ export class UsersService {
       console.log(error)
       throw new HttpException(`Callback createUser ${error.message}`, HttpStatus.BAD_REQUEST);
     }
-
-
   }
+
   async findUsers(): Promise<User[]> {
     return await this.userModel.find().exec();
   }
@@ -37,19 +36,18 @@ export class UsersService {
   }
 
   async findDni(dni: string): Promise<any> {
-    const user = await this.userModel.findOne({dni:dni}).exec();
-    if(user === undefined || user.length == 0){
+    const user = await this.userModel.findOne({ dni: dni }).exec();
+    if (user === undefined || user.length == 0) {
       return this.nope
     }
-
-    const data = { "status":"ok","id_client":user._id}
-
+    const data = { "status": "ok", "id_client": user._id }
     return data
   }
 
   async deleteUser(idUser: string): Promise<User[]> {
     return await this.userModel.findByIdAndRemove(idUser);
   }
+
   async editUser(id, dto) {
     return await this.userModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true });
   }
@@ -58,22 +56,18 @@ export class UsersService {
     try {
       const check = await this.userModel.exists({ dni: dni })
       if (check) {
-        this.findDni(dni).then((user)=>{
+        this.findDni(dni).then((user) => {
           console.log(user)
-          const response:any = {"status":"ok"}
+          const response: any = { "status": "ok" }
           return response
         })
-      
       }
       if (!check) {
         return this.nope
       }
     } catch (error) {
-      // throw new HttpException(`Callback createUser ${error.message}`, HttpStatus.BAD_REQUEST);
       return this.nope
-
     }
-
   }
 
 }
