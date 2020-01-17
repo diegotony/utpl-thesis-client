@@ -7,8 +7,6 @@ import {
   Param,
   HttpCode,
   Body,
-  HttpException,
-  HttpStatus,
   NotFoundException
 } from "@nestjs/common";
 import { CreateUserDto } from "../../shared/dto/create-user.dto";
@@ -16,17 +14,17 @@ import { UsersService } from "./users.service";
 import { User } from "../../shared/dto/user.dto";
 import { ApiImplicitParam, ApiUseTags } from "@nestjs/swagger";
 
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern } from "@nestjs/microservices";
 
-@ApiUseTags('client')
+@ApiUseTags("client")
 @Controller()
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
- 
-  @MessagePattern( 'findClient' )
+  constructor(private readonly usersService: UsersService) {}
+
+  @MessagePattern("findClient")
   async findById(id_user): Promise<any> {
-    console.log(id_user)
-    return await this.usersService.findUser(id_user)
+    console.log(id_user);
+    return await this.usersService.findUser(id_user);
   }
 
   @Post()
@@ -85,13 +83,13 @@ export class UsersController {
     // return (await this.usersService.deleteUser(params.id));
   }
 
-  @Get('check/:id')
-  @ApiImplicitParam({ name: 'id' })
+  @Get("check/:id")
+  @ApiImplicitParam({ name: "id" })
   @HttpCode(200)
   @HttpCode(200)
   async check(@Param() params): Promise<any[]> {
-    console.log(params)
-    return (await this.usersService.checkDni(params.id));
+    console.log(params);
+    return await this.usersService.checkDni(params.id);
   }
 
   // @MessagePattern({ cmd: "getIdUser" })
@@ -99,9 +97,8 @@ export class UsersController {
   //   return (await this.usersService.findUser("5de02c83accce83435f4493a"));
 
   // }
-  @MessagePattern({ cmd: 'LIST_MOVIES' })
+  @MessagePattern({ cmd: "LIST_MOVIES" })
   listMovies(): string[] {
-    return ['Pulp Fiction', 'Blade Runner', 'Hatred'];
+    return ["Pulp Fiction", "Blade Runner", "Hatred"];
   }
-
 }
