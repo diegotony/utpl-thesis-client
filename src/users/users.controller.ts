@@ -17,7 +17,7 @@ import { ApiImplicitParam, ApiUseTags } from "@nestjs/swagger";
 import { MessagePattern } from "@nestjs/microservices";
 
 @ApiUseTags("client")
-@Controller()
+@Controller("client")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
