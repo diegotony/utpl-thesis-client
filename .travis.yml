@@ -1,32 +1,13 @@
-sudo: required
 dist: trusty
+sudo: required
 services:
-  - 'docker'
-  
-addons:
-  sonarcloud:
-    organization: "restaurante"
-    token:
-      secure: "kqaSMVCxJ0rbP8CjoqH6LKsZCBqObGup5blyvMxs6+mWFJvx/aI54xoveJPFjY6Xfs4oftcK9pxbjtuz/N33YcecbzFMt6Pca+VQTJ1ldqzv9m6SegaIyys3EV2dh0Al1d3aWKDEDGUVpO87Mi2FOQWbYb+aABdLID5CqdLZZ2Nzb92OONnmQSL4ZZ9u0FzOBjR2ym/8g0b4JZX2+TWpiMNWoUvsts8ziCoLt70rfWB1fQZCh6C4IUwsEwre1u20EgxSv940dMQN7WHKJkFJV24yW2z36xSzh17cqZQGACd7birPdtJnQblPKLiKesbuM48FGmrttBp/gDNC1/14gqu65iRxXcxXnvIMH+PQDDXg17GO3RTG6iAR+YLUl/GLJQxcafHiOU/0AhT962HzFMArFwxGiNENLgvT8WcTxlEnIuZs2gU4ntYMBpDh4qNUkb5klw0vbaeip8dwhBP5WdID44u/xt3dLbqCzXIrk1euMzLbR9TUpRND2gpPWbCwL12yB8QQO9AScpEu2+b9Oc+R2xJ0j+w9bAwW1Y/wuhmXWAUJTSKYLi+xx2/SqSq6wBBDZu3V0hgF5baFrj/TcD3imJeq1G9Iw7walJd8X6jS58o5asGQOSc1oiLp1TW3/J/qPpOGRGQdDUtz2OuSJQLGCIONeSD+0cK3cd6brso="
+  - docker
 
-before_install:
-  - chmod +x .travis/main.sh
-  - ./.travis/main.sh
-
-before_script:
-  - 'docker-compose version'
-
-script:
-  - make test
-  - make image
-
-after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-      make push-image ;
-    fi
-
-# don't notify me when things fail
-
-notifications:
-  email: true
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - docker build -t diegotony/client-micro .
+      after_success:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push $DOCKER_USERNAME/client-micro:latest
